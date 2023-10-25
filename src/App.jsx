@@ -1,9 +1,11 @@
+import { Home } from "./pages";
+
 const App = () => {
-  return (
-    <div>
-      <p>React Starter</p>
-    </div>
-  );
+	return (
+		<div className="w-full overflow-hidden">
+			<Home />
+		</div>
+	);
 };
 
 export default App;
