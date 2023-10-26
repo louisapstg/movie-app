@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import CardContent from "./CardContent";
 import CardImage from "./CardImage";
-const Card = () => {
+const Card = ({ data }) => {
 	return (
 		<div className="max-w-[260px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-			<CardImage />
-			<CardContent />
+			<CardImage data={data} />
+			<CardContent data={data} />
 		</div>
 	);
 };
