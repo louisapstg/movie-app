@@ -1,4 +1,4 @@
-import { Navbar, Hero, UpcomingMovies } from "../components";
+import { Navbar, Hero, UpcomingMovies, TrendingMovies, Footer } from "../components";
 
 const Home = () => {
 	return (
@@ -6,6 +6,8 @@ const Home = () => {
 			<Navbar />
 			<Hero />
 			<UpcomingMovies />
+			<TrendingMovies />
+			<Footer />
 		</>
 	);
 };
