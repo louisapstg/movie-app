@@ -7,9 +7,7 @@ const NavbarList = () => {
 				{navLinks.map((nav) => (
 					<a
 						key={nav.id}
-						className={`text-white hover:font-bold  text-sm hover:text-base transition-all border-r-2 border-r-highlight px-5 ${
-							nav.id === navLinks.length ? "border-r-0" : ""
-						}`}
+						className={`text-white hover:font-bold  text-sm hover:text-base transition-all hover:bg-highlight hover:text-soft-gray rounded-full border-r-highlight px-5 py-2`}
 						href="#"
 					>
 						{nav.title}
