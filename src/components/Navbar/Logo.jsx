@@ -3,10 +3,10 @@ import AppLogo from "../../assets/Logo.svg";
 const Logo = () => {
 	return (
 		<a href="#" className="flex items-center">
-			<svg width="39" height="39">
+			<svg width="24" height="24">
 				<image href={AppLogo} />
 			</svg>
-			<span className="pl-2 selft-center text-white font-semibold whitespace-normal text-xl md:text-[29px]">
+			<span className="pl-2 selft-center text-white font-semibold whitespace-normal text-base md:text-lg lg:text-2xl">
 				Filmagnet
 			</span>
 		</a>
