@@ -4,7 +4,7 @@ const CardImage = ({ data }) => {
 	return (
 		<a href="#">
 			<img
-				className="rounded-t-lg max-h-[392px]"
+				className="rounded-t-lg max-h-[337px]"
 				src={`https://image.tmdb.org/t/p/w500${poster_path}`}
 				alt=""
 			/>
