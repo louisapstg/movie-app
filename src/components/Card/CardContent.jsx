@@ -1,7 +1,4 @@
 /* eslint-disable react/prop-types */
-// import voteAverage from "../../assets/star.svg";
-// import people from "../../assets/people.svg";
-
 const CardContent = ({ data }) => {
 	const { title, release_date } = data || {};
 	const date = new Date(release_date);

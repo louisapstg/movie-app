@@ -1,4 +1,4 @@
-import searchIcon from "../assets/search-symbol.svg";
+import searchIcon from "../../public/search-symbol.svg";
 import useHook from "../hooks/useHook";
 
 const Search = () => {
