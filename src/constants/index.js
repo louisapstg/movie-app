@@ -2,22 +2,27 @@ export const navLinks = [
    {
       id: 1,
       title: 'HOME',
+      link: '/'
    },
    {
       id: 2,
-      title: 'MOVIE',
+      title: 'MOVIES',
+      link: '/movies'
    },
    {
       id: 3,
       title: 'TV SHOW',
+      link: '/tv-show'
    },
    {
       id: 4,
       title: 'WEB SERIES',
+      link: '/web-series'
    },
    {
       id: 5,
       title: 'PREMIUM',
+      link: '/premium'
    },
 ]
 
