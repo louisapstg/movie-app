@@ -14,6 +14,15 @@ const MoviesAPI = {
          const { message } = error.response.data;
          throw new Error(message)
       }
+   },
+   async searchMovie(keyword) {
+      try {
+         const response = await axiosInstance.get(`/search/movie?query=${keyword}`)
+         return response
+      } catch (err) {
+         const { message } = err.response.data;
+         throw new Error(message)
+      }
    }
 }
 
