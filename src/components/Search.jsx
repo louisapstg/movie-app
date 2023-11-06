@@ -1,8 +1,7 @@
-import searchIcon from "../../public/search-symbol.svg";
-import useHook from "../hooks/useHook";
+/* eslint-disable react/prop-types */
+import searchIcon from "../assets/search-symbol.svg";
 
-const Search = () => {
-	const { keyword, setKeyword } = useHook();
+const Search = ({ keyword, setKeyword }) => {
 	return (
 		<div className="hidden md:inline relative">
 			<input

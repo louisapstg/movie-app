@@ -1,4 +1,4 @@
-import accountSVG from "../../../public/account.svg";
+import accountSVG from "../../assets/account.svg";
 
 const User = () => {
 	return (
