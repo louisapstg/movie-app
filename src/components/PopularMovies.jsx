@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import PopularMoviesList from "./PopularMoviesList";
-import PopularMoviesAPI from "./../../apis/popular.api";
+import PopularMoviesAPI from "../apis/popular.api";
+import ListData from "./ListData";
 
 const InitialPopularMovies = {
 	data: [],
@@ -23,7 +23,7 @@ const PopularMovies = () => {
 			<div className="mb-10">
 				<div className="text-xl md:text-2xl lg:text-4xl text-white">Trending</div>
 			</div>
-			<PopularMoviesList movies={movies} />
+			<ListData datas={movies} />
 		</section>
 	);
 };

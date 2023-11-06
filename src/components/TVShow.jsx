@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import TvAPI from "./../../apis/tv.api";
-import TVShowNavbar from "./TVShowNavbar";
-import TVShowList from "./TVShowList";
-import useHook from "../../hooks/useHook";
+import TvAPI from "../apis/tv.api";
+import useHook from "../hooks/useHook";
+import ListData from "./ListData";
+import ChildNav from "./ChildNav";
 
 const InitialData = {
 	data: [],
@@ -27,8 +27,10 @@ const TVShow = () => {
 
 	return (
 		<section className="w-full bg-gradient-to-b  from-black to-soft-gray p-6 md:p-16">
-			<TVShowNavbar keyword={keyword} setKeyword={setKeyword} />
-			<TVShowList datas={data} />
+			<ChildNav keyword={keyword} setKeyword={setKeyword}>
+				Tv Show List
+			</ChildNav>
+			<ListData datas={data} />
 		</section>
 	);
 };

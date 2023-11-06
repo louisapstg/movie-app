@@ -1,7 +1,7 @@
-import MoviesNavbar from "./MoviesNavbar";
-import MoviesList from "./MoviesList";
 import { useEffect, useState } from "react";
-import MoviesAPI from "./../../apis/movies.api";
+import MoviesAPI from "../apis/movies.api";
+import ListData from "./ListData";
+import ChildNav from "./ChildNav";
 
 const InitialMovies = {
 	data: [],
@@ -20,8 +20,8 @@ const Movies = () => {
 
 	return (
 		<section className="w-full bg-gradient-to-b  from-black to-soft-gray p-6 md:p-16">
-			<MoviesNavbar />
-			<MoviesList movies={movies} />
+			<ChildNav>Movie List</ChildNav>
+			<ListData datas={movies} />
 		</section>
 	);
 };
