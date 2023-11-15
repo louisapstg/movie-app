@@ -1,4 +1,4 @@
-import { Footer, Movies, Navbar } from "../../components";
+import { Footer, Movies, Navbar } from "../components";
 
 const MoviesPage = () => {
 	return (

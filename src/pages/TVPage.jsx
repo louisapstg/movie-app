@@ -1,4 +1,4 @@
-import { Footer, Navbar, TVShow } from "../../components";
+import { Footer, Navbar, TVShow } from "../components";
 
 const TVPage = () => {
 	return (
