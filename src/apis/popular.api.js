@@ -1,14 +1,9 @@
 import { axiosInstance } from "../configs/axiosInstance"
 
 const PopularMoviesAPI = {
-   async getPopularMovies(page) {
+   async getPopularMovies() {
       try {
-         const config = {
-            params: {
-               page
-            }
-         };
-         const response = await axiosInstance.get("/movie/popular", config);
+         const response = await axiosInstance.get(`/movie/popular`);
          return response;
       } catch (error) {
          const { message } = error.response.data;

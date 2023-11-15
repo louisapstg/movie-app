@@ -1,23 +1,23 @@
 import { axiosInstance } from "../configs/axiosInstance";
 
 const MoviesAPI = {
-   async getMovies(page) {
+   async getMovies() {
       try {
-         const config = {
-            params: {
-               page
-            }
-         }
-         const response = await axiosInstance.get("/discover/movie", config)
+         const response = await axiosInstance.get("/discover/movie")
          return response
       } catch (error) {
          const { message } = error.response.data;
          throw new Error(message)
       }
    },
-   async searchMovie(keyword) {
+   async searchMovie(keyword, limit) {
       try {
-         const response = await axiosInstance.get(`/search/movie?query=${keyword}`)
+         const config = {
+            params: {
+               limit,
+            }
+         }
+         const response = await axiosInstance.get(`/search/movie?query=${keyword}`, config)
          return response
       } catch (err) {
          const { message } = err.response.data;
