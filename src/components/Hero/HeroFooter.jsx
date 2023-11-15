@@ -1,4 +1,4 @@
-import playIcon from "../../assets/play-symbol.svg";
+import playIcon from "../../assets/svg/play-symbol.svg";
 
 const HeroFooter = () => {
 	return (
