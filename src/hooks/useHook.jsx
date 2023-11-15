@@ -3,7 +3,7 @@ import { useDebounce } from "use-debounce";
 
 const useHook = () => {
 	const [keyword, setKeyword] = useState("");
-	const [debounceKeyword] = useDebounce(keyword, 0);
+	const [debounceKeyword] = useDebounce(keyword, 500);
 
 	return {
 		keyword,
