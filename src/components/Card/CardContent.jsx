@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 const CardContent = ({ data }) => {
-	const { title, name, release_date, first_air_date } = data || {};
+	const { title, name, release_date, first_air_date } = data;
 	const date = new Date(release_date || first_air_date);
 	const year = date.getFullYear();
 	return (
