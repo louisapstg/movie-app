@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import UpcomingMoviesAPI from "../../apis/upcoming.api"
+import PopularMoviesAPI from './../../apis/popular.api';
 
 
 const initialState = {
@@ -9,32 +9,32 @@ const initialState = {
    loading: false
 }
 
-export const fetchUpcoming = createAsyncThunk("fetch/upcoming", async () => {
+export const fetchPopular = createAsyncThunk("fetch/popular", async () => {
    try {
-      const response = await UpcomingMoviesAPI.getUpcomingMovies();
+      const response = await PopularMoviesAPI.getPopularMovies()
       return response.data.results;
    } catch (e) {
       throw Error(e)
    }
 })
 
-const upcomingSlice = createSlice({
-   name: 'upcoming',
+const popularSlice = createSlice({
+   name: 'popular',
    initialState,
    extraReducers: (builder) => {
       builder
-         .addCase(fetchUpcoming.pending, (state) => {
+         .addCase(fetchPopular.pending, (state) => {
             state.status = "loading";
          })
-         .addCase(fetchUpcoming.fulfilled, (state, action) => {
+         .addCase(fetchPopular.fulfilled, (state, action) => {
             state.status = "succeeded";
             state.data = action.payload;
          })
-         .addCase(fetchUpcoming.rejected, (state, action) => {
+         .addCase(fetchPopular.rejected, (state, action) => {
             state.status = "failed";
             state.error = action.error.message;
          })
    }
 })
 
-export default upcomingSlice.reducer;
+export default popularSlice.reducer;
