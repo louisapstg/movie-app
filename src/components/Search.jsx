@@ -1,19 +1,33 @@
 /* eslint-disable react/prop-types */
-import searchIcon from "../assets/search-symbol.svg";
+import { useState } from "react";
+import searchIcon from "../assets/svg/search-symbol.svg";
 
-const Search = ({ keyword, setKeyword }) => {
+const Search = ({ setKeyword }) => {
+	const [inputValue, setInputValue] = useState("");
+	const handleInputChange = (e) => {
+		setInputValue(e.target.value);
+	};
+
+	const handleSearch = (e) => {
+		e.preventDefault();
+		if (!inputValue) return;
+		setKeyword(inputValue);
+	};
+
 	return (
 		<div className="hidden md:inline relative">
 			<input
 				type="text"
 				className="block w-full border border-highlight bg-black rounded-full h-9 pl-4 pr-12 py-5 text-slate-200"
 				placeholder="Search..."
-				value={keyword}
-				onChange={(e) => setKeyword(e.target.value)}
+				value={inputValue}
+				onChange={handleInputChange}
 			/>
-			<svg className="absolute top-2 left-40">
-				<image href={searchIcon} />
-			</svg>
+			<button className="absolute top-2 left-40" onClick={handleSearch}>
+				<svg>
+					<image href={searchIcon} />
+				</svg>
+			</button>
 		</div>
 	);
 };
