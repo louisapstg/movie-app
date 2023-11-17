@@ -14,16 +14,6 @@ export const navLinks = [
       title: 'TV SHOW',
       link: '/tv-show'
    },
-   {
-      id: 4,
-      title: 'WEB SERIES',
-      link: '/web-series'
-   },
-   {
-      id: 5,
-      title: 'PREMIUM',
-      link: '/premium'
-   },
 ]
 
 export const upcomingMoviesLinks = [
