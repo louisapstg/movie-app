@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import Card from "./Card/Card";
+import Card from "./Card";
 import CardSkeleton from "./Skeleton/CardSkeleton";
-const ListData = ({ datas, loaderFetchData }) => {
+const ListData = ({ datas, loaderFetchData, url }) => {
 	return (
 		<div>
 			{loaderFetchData ? (
@@ -19,8 +19,8 @@ const ListData = ({ datas, loaderFetchData }) => {
 				</div>
 			) : (
 				<div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 md:gap-4">
-					{datas.data.results?.map((data) => {
-						return <Card key={data.id} data={data} />;
+					{datas.results?.map((data, id) => {
+						return <Card key={id} data={data} url={url} />;
 					})}
 				</div>
 			)}
