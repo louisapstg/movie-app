@@ -17,7 +17,7 @@ const Footer = () => {
 						{footerLinks.map((item) => (
 							<a
 								key={item.id}
-								className={`text-white hover:font-bold text-sm hover:text-base transition-all border-r-2 border-r-highlight px-5 ${
+								className={`text-white lg:hover:font-bold text-sm lg:hover:text-base transition-all border-r-2 border-r-highlight px-5 ${
 									item.id === footerLinks.length ? "border-r-0" : ""
 								}`}
 								href="#"

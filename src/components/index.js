@@ -1,10 +1,11 @@
-import Navbar from './Navbar/Navbar';
-import Hero from './Hero/Hero';
+import Navbar from './Navbar';
+import Hero from './Hero';
 import UpcomingMovies from './UpcomingMovies';
 import PopularMovies from './PopularMovies';
 import Footer from './Footer';
 import Movies from './Movies';
 import TVShow from './TVShow';
+import Detail from './Detail';
 
 
-export { Navbar, Hero, UpcomingMovies, PopularMovies, Movies, Footer, TVShow }
+export { Navbar, Hero, UpcomingMovies, PopularMovies, Movies, Footer, TVShow, Detail }
