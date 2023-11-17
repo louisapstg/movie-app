@@ -1,14 +1,9 @@
 import { axiosInstance } from "../configs/axiosInstance"
 
 const UpcomingMoviesAPI = {
-   async getUpcomingMovies(limit) {
+   async getUpcomingMovies(page) {
       try {
-         const config = {
-            params: {
-               limit
-            }
-         };
-         const response = await axiosInstance.get(`/movie/upcoming`, config);
+         const response = await axiosInstance.get(`/movie/upcoming?page=${page}`);
          return response;
       } catch (error) {
          const { message } = error.response.data;

@@ -1,23 +1,18 @@
 import { axiosInstance } from "../configs/axiosInstance";
 
 const MoviesAPI = {
-   async getMovies() {
+   async getMovies(page) {
       try {
-         const response = await axiosInstance.get("/discover/movie")
+         const response = await axiosInstance.get(`/discover/movie?page=${page}`)
          return response
       } catch (error) {
          const { message } = error.response.data;
          throw new Error(message)
       }
    },
-   async searchMovie(keyword, limit) {
+   async searchMovie(keyword, page) {
       try {
-         const config = {
-            params: {
-               limit,
-            }
-         }
-         const response = await axiosInstance.get(`/search/movie?query=${keyword}`, config)
+         const response = await axiosInstance.get(`/search/movie?query=${keyword}&page=${page}`)
          return response
       } catch (err) {
          const { message } = err.response.data;
