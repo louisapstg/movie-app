@@ -9,11 +9,12 @@ import Pagination from "./Pagination";
 
 const Movies = () => {
 	const [movies, setMovies] = useState([]);
+	const [genres, setGenres] = useState([]);
 	const { keyword, setKeyword, debounceKeyword } = useHook();
 	const dispatch = useDispatch();
 	const loading = useSelector((state) => state.movies.loading);
 	const loaderFetchData = useSelector((state) => state.loaderFetchData);
-	const { page, setPage } = useHook();
+	const { page, setPage, filter, setFilter } = useHook();
 
 	useEffect(() => {
 		if (debounceKeyword) {
@@ -29,9 +30,21 @@ const Movies = () => {
 		}
 	}, [debounceKeyword, loading, dispatch, page]);
 
+	useEffect(() => {
+		MoviesAPI.genresMovie().then((results) => {
+			setGenres(results.data);
+		});
+	}, []);
+
 	return (
 		<section className="w-full bg-gradient-to-b  from-black to-soft-gray p-6 md:p-16">
-			<ChildNav keyword={keyword} setKeyword={setKeyword}>
+			<ChildNav
+				genres={genres}
+				filter={filter}
+				setFilter={setFilter}
+				keyword={keyword}
+				setKeyword={setKeyword}
+			>
 				Movie List
 			</ChildNav>
 			<ListData datas={movies} url={"movie"} loaderFetchData={loaderFetchData} />
