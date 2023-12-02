@@ -18,6 +18,15 @@ const MoviesAPI = {
          const { message } = err.response.data;
          throw new Error(message)
       }
+   },
+   async genresMovie() {
+      try {
+         const response = await axiosInstance.get(`/genre/movie/list`)
+         return response
+      } catch (err) {
+         const { message } = err.response.data;
+         throw new Error(message)
+      }
    }
 }
 

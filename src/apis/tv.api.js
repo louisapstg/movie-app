@@ -18,6 +18,15 @@ const TvAPI = {
          const { message } = error.response.data
          throw new Error(message)
       }
+   },
+   async genresTV() {
+      try {
+         const response = await axiosInstance.get(`/genre/tv/list`)
+         return response
+      } catch (error) {
+         const { message } = error.response.data
+         throw new Error(message)
+      }
    }
 }
 
