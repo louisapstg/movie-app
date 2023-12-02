@@ -36,7 +36,7 @@ const Filter = ({ handleModal, modal, genres }) => {
 					className="p-2 space-y-1 text-sm text-gray-700 dark:text-gray-200"
 					aria-labelledby="dropdownRadioBgHoverButton"
 				>
-					{genres.genres?.map((genre) => {
+					{genres?.map((genre) => {
 						return (
 							<li key={genre.id}>
 								<div className="flex items-center p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
