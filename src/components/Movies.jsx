@@ -1,40 +1,36 @@
-import { useEffect, useState } from "react";
-import MoviesAPI from "../apis/movies.api";
+import { useEffect } from "react";
 import ListData from "./ListData";
 import ChildNav from "./ChildNav";
 import useHook from "../hooks/useHook";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoaderFetchData } from "../stores/features/loaderFetchDataSlice";
 import Pagination from "./Pagination";
+import { fetchMovies, genresMovies, searchMovies } from "../stores/features/moviesSlice";
 
 const Movies = () => {
-	const [movies, setMovies] = useState([]);
-	const [genres, setGenres] = useState([]);
-	const { keyword, setKeyword, debounceKeyword } = useHook();
 	const dispatch = useDispatch();
-	const loading = useSelector((state) => state.movies.loading);
+	const { data: movies, genres, loading, total_pages } = useSelector((state) => state.movies);
 	const loaderFetchData = useSelector((state) => state.loaderFetchData);
-	const { page, setPage, filter, setFilter } = useHook();
+	const { keyword, setKeyword, debounceKeyword, page, setPage, filter, setFilter } = useHook();
 
 	useEffect(() => {
 		if (debounceKeyword) {
-			MoviesAPI.searchMovie(debounceKeyword.toLowerCase(), page).then((results) => {
-				setMovies(results.data);
-			});
+			try {
+				dispatch(searchMovies(debounceKeyword.toLowerCase(), page));
+			} catch (err) {
+				console.error(err);
+			}
 		} else {
 			dispatch(setLoaderFetchData(true));
-			MoviesAPI.getMovies(page).then((results) => {
-				setMovies(results.data);
+			try {
+				dispatch(fetchMovies(page));
+				dispatch(genresMovies());
 				dispatch(setLoaderFetchData(false));
-			});
+			} catch (err) {
+				console.error(err);
+			}
 		}
-	}, [debounceKeyword, loading, dispatch, page]);
-
-	useEffect(() => {
-		MoviesAPI.genresMovie().then((results) => {
-			setGenres(results.data);
-		});
-	}, []);
+	}, [dispatch, page, debounceKeyword, loading]);
 
 	return (
 		<section className="w-full bg-gradient-to-b  from-black to-soft-gray p-6 md:p-16">
@@ -48,7 +44,7 @@ const Movies = () => {
 				Movie List
 			</ChildNav>
 			<ListData datas={movies} url={"movie"} loaderFetchData={loaderFetchData} />
-			<Pagination page={page} setPage={setPage} total_pages={movies.total_pages} />
+			<Pagination page={page} setPage={setPage} total_pages={total_pages} />
 		</section>
 	);
 };
