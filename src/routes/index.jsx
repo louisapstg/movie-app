@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, DetailedPage, MoviesPage, TVPage, NotFound } from "../pages";
+import { Home, DetailedPage, MoviesPage, TVPage, NotFound, LoginPage } from "../pages";
 const Router = () => {
 	return (
 		<div className="w-full overflow-hidden">
@@ -9,6 +9,7 @@ const Router = () => {
 					<Route path="/movies" element={<MoviesPage />} />
 					<Route path="/tv-show" element={<TVPage />} />
 					<Route path=":url/:id" element={<DetailedPage />} />
+					<Route path="/login" element={<LoginPage />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</BrowserRouter>
