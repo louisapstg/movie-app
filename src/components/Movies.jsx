@@ -6,45 +6,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoaderFetchData } from "../stores/features/loaderFetchDataSlice";
 import Pagination from "./Pagination";
 import { fetchMovies, genresMovies, searchMovies } from "../stores/features/moviesSlice";
+import { useDebounce } from "use-debounce";
 
 const Movies = () => {
 	const dispatch = useDispatch();
 	const { data: movies, genres, loading, total_pages } = useSelector((state) => state.movies);
 	const loaderFetchData = useSelector((state) => state.loaderFetchData);
-	const { keyword, setKeyword, debounceKeyword, page, setPage, filter, setFilter } = useHook();
+	const { keyword, page, filter, genreId, sortBy } = useHook();
+	const [debounceKeyword] = useDebounce(keyword, 0);
 
 	useEffect(() => {
-		if (debounceKeyword) {
-			try {
-				dispatch(searchMovies(debounceKeyword.toLowerCase(), page));
-			} catch (err) {
-				console.error(err);
-			}
-		} else {
-			dispatch(setLoaderFetchData(true));
-			try {
-				dispatch(fetchMovies(page));
+		dispatch(setLoaderFetchData(true));
+		try {
+			if (debounceKeyword) {
+				dispatch(searchMovies({ keyword: debounceKeyword.toLowerCase(), page: page }));
+			} else {
+				dispatch(fetchMovies({ genreId, page, sortBy }));
 				dispatch(genresMovies());
-				dispatch(setLoaderFetchData(false));
-			} catch (err) {
-				console.error(err);
 			}
+		} catch (err) {
+			alert(err);
+		} finally {
+			dispatch(setLoaderFetchData(false));
 		}
-	}, [dispatch, page, debounceKeyword, loading]);
+	}, [dispatch, genreId, page, debounceKeyword, loading, sortBy]);
 
 	return (
 		<section className="w-full bg-gradient-to-b  from-black to-soft-gray p-6 md:p-16">
-			<ChildNav
-				genres={genres}
-				filter={filter}
-				setFilter={setFilter}
-				keyword={keyword}
-				setKeyword={setKeyword}
-			>
+			<ChildNav genres={genres} filter={filter}>
 				Movie List
 			</ChildNav>
 			<ListData datas={movies} url={"movie"} loaderFetchData={loaderFetchData} />
-			<Pagination page={page} setPage={setPage} total_pages={total_pages} />
+			<Pagination total_pages={total_pages} />
 		</section>
 	);
 };

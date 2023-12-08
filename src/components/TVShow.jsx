@@ -1,41 +1,43 @@
-import { useEffect, useState } from "react";
-import TvAPI from "../apis/tv.api";
-import useHook from "../hooks/useHook";
+import { useEffect } from "react";
 import ListData from "./ListData";
 import ChildNav from "./ChildNav";
+import useHook from "../hooks/useHook";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoaderFetchData } from "../stores/features/loaderFetchDataSlice";
 import Pagination from "./Pagination";
+import { fetchTvShow, genresTvShow, searchTvShow } from "../stores/features/tvShowSlice";
+import { useDebounce } from "use-debounce";
 
 const TVShow = () => {
-	const [data, setData] = useState([]);
-	const { keyword, setKeyword, debounceKeyword } = useHook();
 	const dispatch = useDispatch();
-	const loading = useSelector((state) => state.tvshow.loading);
+	const { data: data, genres, loading, total_pages } = useSelector((state) => state.tvshow);
 	const loaderFetchData = useSelector((state) => state.loaderFetchData);
-	const { page, setPage } = useHook();
+	const { keyword, page, filter, genreId, sortBy } = useHook();
+	const [debounceKeyword] = useDebounce(keyword, 0);
 
 	useEffect(() => {
-		if (debounceKeyword) {
-			TvAPI.searchTvShow(debounceKeyword.toLowerCase(), page).then((results) => {
-				setData(results.data);
-			});
-		} else {
-			dispatch(setLoaderFetchData(true));
-			TvAPI.getTvShow(page).then((results) => {
-				setData(results.data);
-				dispatch(setLoaderFetchData(false));
-			});
+		dispatch(setLoaderFetchData(true));
+		try {
+			if (debounceKeyword) {
+				dispatch(searchTvShow({ keyword: debounceKeyword.toLowerCase(), page: page }));
+			} else {
+				dispatch(fetchTvShow({ genreId, page, sortBy }));
+				dispatch(genresTvShow());
+			}
+		} catch (err) {
+			alert(err);
+		} finally {
+			dispatch(setLoaderFetchData(false));
 		}
-	}, [debounceKeyword, loading, dispatch, page]);
+	}, [dispatch, genreId, page, debounceKeyword, loading, sortBy]);
 
 	return (
 		<section className="w-full bg-gradient-to-b  from-black to-soft-gray p-6 md:p-16">
-			<ChildNav keyword={keyword} setKeyword={setKeyword}>
+			<ChildNav genres={genres} filter={filter}>
 				Tv Show List
 			</ChildNav>
 			<ListData datas={data} url={"tv"} loaderFetchData={loaderFetchData} />
-			<Pagination page={page} total_pages={data.total_pages} setPage={setPage} />
+			<Pagination total_pages={total_pages} />
 		</section>
 	);
 };
