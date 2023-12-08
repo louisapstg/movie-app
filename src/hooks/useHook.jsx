@@ -1,20 +1,47 @@
-import { useState } from "react";
-import { useDebounce } from "use-debounce";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	setFilter,
+	setGenreId,
+	setKeyword,
+	setPage,
+	setSortBy,
+} from "../stores/features/globalStateSlice";
 
 const useHook = () => {
-	const [keyword, setKeyword] = useState("");
-	const [debounceKeyword] = useDebounce(keyword, 500);
-	const [page, setPage] = useState(1);
-	const [filter, setFilter] = useState("");
+	const dispatch = useDispatch();
+	const { keyword, page, filter, genreId, sortBy } = useSelector((state) => state.globalState);
+
+	const setKeywordHandler = (value) => {
+		dispatch(setKeyword(value));
+	};
+
+	const setPageHandler = (value) => {
+		dispatch(setPage(value));
+	};
+
+	const setFilterHandler = (value) => {
+		dispatch(setFilter(value));
+	};
+
+	const setGenreIdHandler = (value) => {
+		dispatch(setGenreId(value));
+	};
+
+	const setSortByHandler = (value) => {
+		dispatch(setSortBy(value));
+	};
 
 	return {
-		page,
-		setPage,
-		filter,
-		setFilter,
 		keyword,
-		setKeyword,
-		debounceKeyword,
+		setKeyword: setKeywordHandler,
+		page,
+		setPage: setPageHandler,
+		filter,
+		setFilter: setFilterHandler,
+		genreId,
+		setGenreId: setGenreIdHandler,
+		sortBy,
+		setSortBy: setSortByHandler,
 	};
 };
 
