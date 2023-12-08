@@ -6,7 +6,7 @@ const NavbarList = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 	return (
-		<ul className="list-none flex justify-center items-center flex-1">
+		<ul className="list-none flex justify-center items-center">
 			<li>
 				{navLinks.map((nav) => (
 					<Link
