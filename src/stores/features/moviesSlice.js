@@ -11,16 +11,16 @@ const initialState = {
     loading: false
 }
 
-export const fetchMovies = createAsyncThunk("fetch/movies", async (page) => {
+export const fetchMovies = createAsyncThunk("fetch/movies", async ({ genreId, page, sortBy }) => {
     try {
-        const response = await MoviesAPI.getMovies(page);
+        const response = await MoviesAPI.getMovies(genreId, page, sortBy);
         return response.data;
     } catch (e) {
         throw Error(e)
     }
 })
 
-export const searchMovies = createAsyncThunk("fetch/movies/search", async (keyword, page) => {
+export const searchMovies = createAsyncThunk("fetch/movies/search", async ({ keyword, page }) => {
     try {
         const response = await MoviesAPI.searchMovie(keyword, page);
         return response.data;
