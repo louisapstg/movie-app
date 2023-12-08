@@ -1,17 +1,20 @@
 /* eslint-disable react/prop-types */
-const Pagination = ({ page, setPage, total_pages }) => {
+import useHook from "../hooks/useHook";
+
+const Pagination = ({ total_pages }) => {
+	const { page, setPage } = useHook();
 	const plusPage = (e) => {
 		e.preventDefault();
 		if (page === total_pages) return;
-		setPage(() => page + 1);
-		window.scrollTo({ top: 0, behavior: "smooth" });
+		setPage(page + 1);
+		window.scrollTo({ top: window.scrollY - 60, behavior: "smooth" });
 	};
 
 	const minPage = (e) => {
 		e.preventDefault();
 		if (page === 1) return;
-		setPage(() => page - 1);
-		window.scrollTo({ top: 0, behavior: "smooth" });
+		setPage(page - 1);
+		window.scrollTo({ top: window.scrollY - 60, behavior: "smooth" });
 	};
 	return (
 		<nav aria-label="Page navigation example">
