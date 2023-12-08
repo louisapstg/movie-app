@@ -6,6 +6,7 @@ import Footer from './Footer';
 import Movies from './Movies';
 import TVShow from './TVShow';
 import Detail from './Detail';
+import LoginForm from './LoginForm';
 
 
-export { Navbar, Hero, UpcomingMovies, PopularMovies, Movies, Footer, TVShow, Detail }
+export { Navbar, Hero, UpcomingMovies, PopularMovies, Movies, Footer, TVShow, Detail, LoginForm }
