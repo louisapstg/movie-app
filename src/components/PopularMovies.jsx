@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
-import PopularMoviesAPI from "../apis/popular.api";
+import { useEffect } from "react";
 import ListData from "./ListData";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoaderFetchData } from "../stores/features/loaderFetchDataSlice";
 import useHook from "./../hooks/useHook";
 import Pagination from "./Pagination";
+import { fetchPopular } from "../stores/features/popularSlice";
 
 const PopularMovies = () => {
-	const [movies, setMovies] = useState([]);
 	const dispatch = useDispatch();
-	const loading = useSelector((state) => state.popular.loading);
+	const { data: movies, loading, total_pages } = useSelector((state) => state.popular);
 	const loaderFetchData = useSelector((state) => state.loaderFetchData);
-	const { page, setPage } = useHook();
+	const { page: localPage } = useHook();
 
 	useEffect(() => {
 		dispatch(setLoaderFetchData(true));
-		PopularMoviesAPI.getPopularMovies(page).then((result) => {
-			setMovies(result.data);
+		try {
+			dispatch(fetchPopular(localPage));
+		} catch (e) {
+			alert(e);
+		} finally {
 			dispatch(setLoaderFetchData(false));
-		});
-	}, [loading, dispatch, page]);
+		}
+	}, [dispatch, localPage, loading]);
 
 	return (
 		<section className="w-full bg-gradient-to-b from-black to-soft-gray p-6 md:p-16">
@@ -27,7 +29,7 @@ const PopularMovies = () => {
 				<div className="text-xl md:text-2xl lg:text-4xl text-white">Trending</div>
 			</div>
 			<ListData datas={movies} url={"movie"} loaderFetchData={loaderFetchData} />
-			<Pagination page={page} setPage={setPage} total_pages={movies.total_pages} />
+			<Pagination total_pages={total_pages} />
 		</section>
 	);
 };
