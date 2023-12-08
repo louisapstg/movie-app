@@ -7,7 +7,7 @@ const CardContent = ({ data }) => {
 		<div className="p-2 text-white">
 			<div className="grid grid-rows-2 gap-0 truncate">
 				<h5 className="mb-2 text-xs md:text-sm tracking-tight truncate">{title || name}</h5>
-				<div className="text-xs md:text-xs text-highlight">{year}</div>
+				<div className="text-xs md:text-xs text-highlight">{year ? year : "N/A"}</div>
 			</div>
 		</div>
 	);
