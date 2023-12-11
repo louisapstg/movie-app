@@ -5,17 +5,10 @@ const ListData = ({ datas, loaderFetchData, url }) => {
 	return (
 		<div>
 			{loaderFetchData ? (
-				<div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 md:gap-4">
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
-					<CardSkeleton />
+				<div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 md:gap-4">
+					{Array.from({ length: 20 }).map((_, id) => {
+						return <CardSkeleton key={id} />;
+					})}
 				</div>
 			) : (
 				<div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 md:gap-4">
