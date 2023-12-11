@@ -18,6 +18,9 @@ const globalStateSlice = createSlice({
         setPage: (state, action) => {
             state.page = action.payload;
         },
+        resetPage: (state) => {
+            state.page = 1;
+        },
         setFilter: (state, action) => {
             state.filter = action.payload;
         },
@@ -33,6 +36,7 @@ const globalStateSlice = createSlice({
 export const {
     setKeyword,
     setPage,
+    resetPage,
     setFilter,
     setGenreId,
     setSortBy
