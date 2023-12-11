@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import ListData from "./ListData";
 import { useDispatch, useSelector } from "react-redux";
@@ -5,6 +6,7 @@ import { setLoaderFetchData } from "../stores/features/loaderFetchDataSlice";
 import Pagination from "./Pagination";
 import useHook from "./../hooks/useHook";
 import { fetchUpcoming } from "../stores/features/upcomingSlice";
+import { debounce } from "lodash";
 
 const UpcomingMovies = () => {
 	const dispatch = useDispatch();
@@ -12,7 +14,7 @@ const UpcomingMovies = () => {
 	const loaderFetchData = useSelector((state) => state.loaderFetchData);
 	const { page: localPage } = useHook();
 
-	useEffect(() => {
+	const fetchData = debounce(() => {
 		dispatch(setLoaderFetchData(true));
 		try {
 			dispatch(fetchUpcoming(localPage));
@@ -21,6 +23,10 @@ const UpcomingMovies = () => {
 		} finally {
 			dispatch(setLoaderFetchData(false));
 		}
+	}, 500);
+
+	useEffect(() => {
+		fetchData();
 	}, [dispatch, localPage, loading]);
 
 	return (

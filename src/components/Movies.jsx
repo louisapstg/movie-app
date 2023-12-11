@@ -1,35 +1,50 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import ListData from "./ListData";
 import ChildNav from "./ChildNav";
 import useHook from "../hooks/useHook";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setLoaderFetchData } from "../stores/features/loaderFetchDataSlice";
 import Pagination from "./Pagination";
 import { fetchMovies, genresMovies, searchMovies } from "../stores/features/moviesSlice";
 import { useDebounce } from "use-debounce";
+import { debounce } from "lodash";
 
 const Movies = () => {
 	const dispatch = useDispatch();
-	const { data: movies, genres, loading, total_pages } = useSelector((state) => state.movies);
+	const {
+		data: movies,
+		genres,
+		total_pages,
+	} = useSelector((state) => state.movies, shallowEqual);
 	const loaderFetchData = useSelector((state) => state.loaderFetchData);
 	const { keyword, page, filter, genreId, sortBy } = useHook();
 	const [debounceKeyword] = useDebounce(keyword, 0);
 
-	useEffect(() => {
+	const fetchData = debounce(() => {
 		dispatch(setLoaderFetchData(true));
 		try {
 			if (debounceKeyword) {
 				dispatch(searchMovies({ keyword: debounceKeyword.toLowerCase(), page: page }));
 			} else {
-				dispatch(fetchMovies({ genreId, page, sortBy }));
-				dispatch(genresMovies());
+				batch(() => {
+					dispatch(fetchMovies({ genreId, page, sortBy }));
+					dispatch(genresMovies());
+				});
 			}
 		} catch (err) {
 			alert(err);
 		} finally {
 			dispatch(setLoaderFetchData(false));
 		}
-	}, [dispatch, genreId, page, debounceKeyword, loading, sortBy]);
+	}, 500);
+
+	useEffect(() => {
+		fetchData();
+		return () => {
+			fetchData.cancel();
+		};
+	}, [dispatch, genreId, page, debounceKeyword, sortBy]);
 
 	return (
 		<section className="w-full bg-gradient-to-b  from-black to-soft-gray p-6 md:p-16">

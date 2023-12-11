@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import ListData from "./ListData";
 import ChildNav from "./ChildNav";
@@ -7,6 +8,7 @@ import { setLoaderFetchData } from "../stores/features/loaderFetchDataSlice";
 import Pagination from "./Pagination";
 import { fetchTvShow, genresTvShow, searchTvShow } from "../stores/features/tvShowSlice";
 import { useDebounce } from "use-debounce";
+import { debounce } from "lodash";
 
 const TVShow = () => {
 	const dispatch = useDispatch();
@@ -15,7 +17,7 @@ const TVShow = () => {
 	const { keyword, page, filter, genreId, sortBy } = useHook();
 	const [debounceKeyword] = useDebounce(keyword, 0);
 
-	useEffect(() => {
+	const fetchData = debounce(() => {
 		dispatch(setLoaderFetchData(true));
 		try {
 			if (debounceKeyword) {
@@ -29,6 +31,13 @@ const TVShow = () => {
 		} finally {
 			dispatch(setLoaderFetchData(false));
 		}
+	}, 500);
+
+	useEffect(() => {
+		fetchData();
+		return () => {
+			fetchData.cancel();
+		};
 	}, [dispatch, genreId, page, debounceKeyword, loading, sortBy]);
 
 	return (
