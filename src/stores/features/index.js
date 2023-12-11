@@ -6,6 +6,7 @@ import moviesSlice from "./moviesSlice";
 import tvShowSlice from "./tvShowSlice";
 import popularSlice from "./popularSlice";
 import globalStateSlice from './globalStateSlice';
+import detailSlice from "./detailSlice";
 
 export const rootReducer = combineReducers({
     upcoming: upcomingSlice,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
     popular: popularSlice,
     loaderFetchData: loaderFetchDataSlice,
     loaderSubmit: loaderSubmitSlice,
-    globalState: globalStateSlice
+    globalState: globalStateSlice,
+    detailSlice: detailSlice,
 })
